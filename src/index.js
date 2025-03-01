@@ -60,7 +60,7 @@ app.post("/login", async (req, res) => {
             res.send("wrong Password");
         }
         else {
-            res.render("home");
+            res.render("index");
         }
     }
     catch {
@@ -69,8 +69,14 @@ app.post("/login", async (req, res) => {
 });
 
 
-// Define Port for Application
-const port = 5000;
-app.listen(port, () => {
-    console.log(`Server listening on port ${port}`)
-});
+// If running locally, start the server
+if (process.env.NODE_ENV !== 'production') {
+    const port = process.env.PORT || 5000;
+    app.listen(port, () => {
+      console.log(`Server listening on port ${port}`);
+    });
+  }
+  
+  // Export the app for Vercel
+  module.exports = app;
+  
